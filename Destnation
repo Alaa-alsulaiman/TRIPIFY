@@ -1,0 +1,115 @@
+mport SwiftUI
+
+struct Destnation: View {
+    @State private var selection = "Destination"
+    @State var selectedDate: Date = Date.now
+    @State var selectedDate1: Date = Date.now
+    
+    let startingDate: Date = Date()
+    let endingDate : Date = Calendar.current.date(from: DateComponents(year: 2024)) ?? Date()
+    let startingDate1: Date = Date()
+    let endingDate1 : Date = Calendar.current.date(from: DateComponents(year: 2024)) ?? Date()
+    
+    let destination = ["Destination" ,"Spain,Madrid 🇪🇸","Italy,Rome 🇮🇹", "Turkey,Ankara 🇹🇷 ", "Greece,Athens 🇬🇷", "Egypt,Cairo 🇪🇬", "Korea,Seoul 🇰🇷","United Arab Emirates,Abu Dhabi 🇦🇪" ,"France,Paris 🇫🇷"]
+    
+    var dataFormatter: DateFormatter{
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        return formatter
+    }
+    var body: some View {
+        
+        ZStack{
+            LinearGradient(gradient: Gradient (colors: [.init("lightpink"),.white]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+            Image("trip")
+                .resizable()
+                .padding(.bottom, 430)
+                .frame(width:200,height:630)
+                .aspectRatio(contentMode: .fit)
+            
+            VStack{
+                
+            
+                DatePicker("From", selection: $selectedDate, in: startingDate...endingDate, displayedComponents: [.date])
+                    .accentColor(Color.gray)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+                    .font(.title2)
+                DatePicker("To", selection: $selectedDate1, in: startingDate1...endingDate1, displayedComponents: [.date])
+                    .accentColor(Color.gray)
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .padding()
+                    .font(.title2)
+            }
+            
+            VStack {
+                Picker("Select a destination", selection: $selection) {
+                    ForEach(destination, id: \.self) {
+                        Text($0)
+                    }}
+                .pickerStyle(.menu)
+                .frame(width: 250, height: 60)
+                .background(Color("lightgreen"))
+                .cornerRadius(15)
+                .tint(.black)
+                .position(x:190,y:560)
+                
+                
+                
+                /* Menu("Destiniation") {
+                 Button("Saudi Arabia, Riyadh", action: {})
+                 Button("Italy, Rome", action: {})
+                 Button("Turkey, Ankara", action: {})
+                 Button("Egypt, Cairo", action: {})
+                 Button("Korea, Seoul", action: {})
+                 Button("Spain, Madrid", action: {})
+                 Button("United Arab Emirates, Abu Dhabi", action: {})
+                 Button("France, Paris", action: {})
+                 
+                 
+                 }
+                 
+                 DatePicker(
+                 "From",
+                 selection: $date,
+                 displayedComponents: [.date]
+                 
+                 )
+                 .padding([.top, .leading], 100.0)
+                 .frame(width: 130.0, height: 50.0)
+                 .accentColor(.brown)
+                 DatePicker(
+                 "To",
+                 selection: $date,
+                 displayedComponents: [.date]
+                 )
+                 .padding(.top, 200.0)
+                 .padding(.leading,100)
+                 .frame(width: 130.0, height: 50.0)
+                 .accentColor(.brown)
+                 Text("From")
+                 .padding([.top, .trailing], 100.0)
+                 .padding(.leading,-80)
+                 Text("To")
+                 .padding(.top,200)
+                 
+                 .padding(.leading,-110)*/
+                
+            }
+            
+            NavigationLink(destination: MainView()){Text("Go")}
+                .frame(width: 150, height: 40)
+                .background(Color("lightpink"))
+                .cornerRadius(15)
+                .foregroundColor(.black)
+                .tint(.black)
+                .position(x:190,y:630)
+            
+        }}}
+
+struct Destnation_Previews: PreviewProvider {
+    static var previews: some View {
+        Destnation()
+    }
+}
